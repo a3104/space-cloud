@@ -229,6 +229,7 @@ func (s *SQL) read(ctx context.Context, col string, req *model.ReadRequest, exec
 }
 
 func (s *SQL) readExec(ctx context.Context, col, sqlString string, args []interface{}, executor executor, req *model.ReadRequest) (int64, interface{}, map[string]map[string]string, *model.SQLMetaData, error) {
+	fmt.Println(sqlString)
 	operation := req.Operation
 	isAggregate := len(req.Aggregate) > 0
 	metaData := new(model.SQLMetaData)
@@ -398,6 +399,7 @@ func (s *SQL) processRows(ctx context.Context, isDebug bool, table []string, isA
 	if m2, p := mapping[key]; p {
 		mapLength = len(m2)
 		m = m2
+		*finalArray = append(*finalArray, m)
 	} else {
 		mapLength = len(m)
 		mapping[key] = m
